@@ -12,7 +12,7 @@ In addition to a server, you will need a [Twilio](https://www.twilio.com) accoun
 
 Do not place these scripts in the public_html, www, or otherwise Internet-accessible directories of your server, as your Sierra username and password will be publically viewable, as will your Twilio SID and token. If you are more tech-savvy than I am, you can set up encryption on these variables
 
-## Scripts
+## Scripts (/sms/)
 
 ### sierra-sms-hourly.php
 
@@ -28,10 +28,41 @@ We run this script every 15 minutes, checking to see if items are due in the nex
 
 It looks kind of weird for 0300 and 0400 because non-hourly items are due at 0400, so we don't want to send a notice for those. If we didn't have this issue, we could have one job: */15 * * * * /path/to/sms/sierra-sms-hourly.php
 
-### sierra-sms-daily-pm
+### sierra-sms-daily-pm.php
 
 We run this script at 2000 once a day, and it returns the number of items due on the next day, sending a text advsing they have that many items due.
 
 #### CRON job
 
 \* 0	20 		*	*	* /path/to/sms/sierra-sms-hourly.php
+
+#### smslog.txt 
+
+This is just the log file that the scripts write to each time they run.
+
+## Authorizations (/auth/)
+
+### sierra-auth-php
+
+A file to store your Sierra SQL authorization variables. This is optional, you can just define the variables in the hourly and daily scripts.
+
+### twilio-auth.php
+
+A file to store your Twilio SID and token variables. Again, this is optional and you can just define the variables in the main scripts.
+
+## Web files (/www/)
+
+### sms-confirm.html, fail.html, confirm.html
+
+These are the pages we use to send a confirmation text to new users. It calls sms-confirmation.php. If the password entry is successful, the confirm.html file is called, otherwise, it goes to fail.html.
+
+### sms-confirmation.php
+
+From sms-confirm.html, this salls the Twilio PHP helper library to send a confirmation text message, and verifies the password for the form is correct.
+
+### hash-gen.php
+
+This is required to generate a password hash for sms-confirmation.php. Don't keep this in public_html or www, just run it once from a browser, then delete it from the server (or move to a non-public folder).
+
+
+
