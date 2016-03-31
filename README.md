@@ -42,7 +42,7 @@ This is just the log file that the scripts write to each time they run.
 
 ## Authorizations (/auth/)
 
-### sierra-auth-php
+### sierra-auth.php
 
 A file to store your Sierra SQL authorization variables. This is optional, you can just define the variables in the hourly and daily scripts.
 
