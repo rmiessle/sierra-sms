@@ -1,5 +1,7 @@
 # SMS Notices for Sierra (III)
 
+As of 6/18/19, Gettysburg College is no longer using Sierra. This repository will no longer be updated.
+
 The following scripts are designed to provide text (SMS) notifications to Sierra patrons by way of the Twilio service. The PHP scripts run a SQL query on the Sierra database server and sends the data to Twilio, which handles the sending of text messages.
 
 ## Requirements
